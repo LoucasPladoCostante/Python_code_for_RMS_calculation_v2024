@@ -220,3 +220,13 @@ print("Re_cr")
 
 print(Speed[indexLambda1]*beam.data["Sk"]/(2*np.pi))
 print(Speed[indexLambda2]*beam.data["Sk"]/(2*np.pi))
+
+print("U_m,cr")
+
+print(Speed[indexLambda1]*beam.data["Omega0"]*(beam.data["R2"]-beam.data["R1"])/(4*np.pi))
+print(Speed[indexLambda2]*beam.data["Omega0"]*(beam.data["R2"]-beam.data["R1"])/(4*np.pi))
+
+print("Q_cr")
+
+print(Speed[indexLambda1]*beam.data["Omega0"]*(beam.data["R2"]-beam.data["R1"])*((beam.data["R2"]**2)-(beam.data["R1"]**2))/4)
+print(Speed[indexLambda2]*beam.data["Omega0"]*(beam.data["R2"]-beam.data["R1"])*((beam.data["R2"]**2)-(beam.data["R1"]**2))/4)
