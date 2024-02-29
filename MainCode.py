@@ -54,9 +54,13 @@ nu = 10**(-6)
 
 U = 2.6
 
-# Other
+# Gravity
 
 G = 9.81
+
+# Dimensional axial coordinate to compute the RMS
+
+X = L + H
 
 beam = Beam(L, S, I, R1, H, R2, E, rho, Xi, Zeta, Mcyl, Jcyl, rhoF, nu, U, G)
 
@@ -81,26 +85,28 @@ model = "Lagrange"
 # Calculation of the integral for the RMS 
 array = Integrand(w, NMatrix, NFi, model, beam, omegaMin, omegaMax, Resol)[0]
 
-def RMSx(x):
+def RMSx(X):
     """
-    Function calculating the RMS of the beam at a given point x
+    Function calculating the RMS of the beam at a given dimensional coordinate X
 
     Parameters
     ----------
-    x : float between
-        DESCRIPTION.
+    x : float
+        Dimensionless coordinate where the RMS is computed.
 
     Returns
     -------
-    RMS : TYPE
-        DESCRIPTION.
+    RMS : float
+        Dimensional RMS of the structure given at axial coordinate X.
 
     """
+    x = X/L
     W = np.array([w(i, 0, x) for i in range(NMatrix)])
     RMS = np.sqrt((((beam.data["l"]/(beam.data["h"]*(beam.data["epsilon"]-1\
                 )))**2)/(2*np.pi))*np.einsum('i, ij, j->',W, array, W).real)
-    return RMS
+    return RMS*(beam.data["R2"]-beam.data["R1"])
 
-x = 1
+
 print("")
-print(RMSx(x))
+print("The dimensional RMS computed is : ")
+print(RMSx(X))
