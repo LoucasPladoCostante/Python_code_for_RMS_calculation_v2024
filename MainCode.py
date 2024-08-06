@@ -8,9 +8,11 @@ The following code compute the RMS at a given point of the structure
 """
 import numpy as np
 
+from Main.BeamParameters.EigenmodeRayleighReal import seekEigenMode
 from Main.BeamParameters.Beam import Beam
 from Main.BeamParameters.BaseFunction import w
 from Main.PSD.Integrand import Integrand
+from Main.PSD.Stability import eigValA
 
 
 
@@ -84,6 +86,8 @@ NMatrix = 5
 NFi = 50
 omegaMin = 10**(-5)
 omegaMax = 2.5*beam.data["u"]
+N = 4
+eps = 10 ** (-8)
 
 ###############################################################################
 ## Calculation of the RMS
@@ -121,3 +125,25 @@ def RMSx(X):
 print("")
 print("The dimensional RMS computed is : ")
 print(RMSx(X))
+
+def isStable():
+    """
+    Function telling if the system is stable or unstable
+
+    Returns
+    -------
+    None.
+
+    """
+    
+    listEigMode = seekEigenMode(omegaMin, 10*omegaMax, Resol, beam, model, NFi, True)
+    
+    guessfqz = [listEigMode[0] * 1j, listEigMode[1] * 1j]
+    lstfqz = eigValA(beam, guessfqz, NFi, model, N, eps)
+    
+    if (lstfqz[0].real<0) and (lstfqz[1].real<0):
+        print("\nthe system is stable")
+    else:
+        print("\nthe system is unstable")
+
+isStable()
