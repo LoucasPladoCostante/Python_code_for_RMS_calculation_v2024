@@ -15,7 +15,7 @@ os.chdir("..")
 from Main.BeamParameters.Geometry import CaseStudy
 from Main.BeamParameters.BaseFunction import w
 from Main.PSD.Integrand import Integrand
-from Test.BenchmarkRMS import RMSThesisMaud2024, RMSErcofact2023
+from Test.BenchmarkRMS import RMSErcofact2023
 
 
 """ Function displaying the RMS at the tip end as a function of the Reynolds

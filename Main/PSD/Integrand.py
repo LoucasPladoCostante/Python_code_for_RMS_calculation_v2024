@@ -53,7 +53,7 @@ def Integrand(w, NMatrix, NFi, model, beam, omegaMin, omegaMax, Resol):
         M = Ms + (m0 + beam.data["mcyl"]) * Mm + (j0 + beam.data["jcyl"]) * Mj
         C = Cs + (c0 + cu) * Cc + (d0 + du) * Cd + au * Ca
         K = Ks + ((beam.data["mF"]-beam.data["mcyl"]) * beam.data["g"] + fd) * Kf + ku * Kk
-        return - (omega**2) * M + 1j * omega * C + K
+        return - (omega**2) * M - 1j * omega * C + K
     
     def matTransfert(omega):
         evalIf, evalIfgamma, evalIgamma = I(omega, **beam.data)
@@ -121,7 +121,7 @@ def Integrandlog(w, NMatrix, NFi, model, beam, omegaMin, omegaMax, Resol):
         M = Ms + (m0 + beam.data["mcyl"]) * Mm + (j0 + beam.data["jcyl"]) * Mj
         C = Cs + (c0 + cu) * Cc + (d0 + du) * Cd + au * Ca
         K = Ks + ((beam.data["mF"]-beam.data["mcyl"]) * beam.data["g"] + fd) * Kf + ku * Kk
-        return - (omega**2) * M + 1j * omega * C + K
+        return - (omega**2) * M - 1j * omega * C + K
     
     def matTransfert(omega):
         evalIf, evalIfgamma, evalIgamma = I(omega, **beam.data)
